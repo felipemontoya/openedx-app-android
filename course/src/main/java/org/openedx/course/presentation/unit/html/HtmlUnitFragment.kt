@@ -406,10 +406,11 @@ private fun HTMLContentView(
                                 add(Manifest.permission.RECORD_AUDIO)
                             }
                         }
-                        if (androidPerms.isEmpty() || androidPerms.all {
+                        val allGranted = androidPerms.all {
                             ContextCompat.checkSelfPermission(context, it) ==
                                 PackageManager.PERMISSION_GRANTED
-                        }) {
+                        }
+                        if (androidPerms.isEmpty() || allGranted) {
                             request.grant(request.resources)
                         } else {
                             pendingWebPermissionRequest.value = request
